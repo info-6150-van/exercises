@@ -1,0 +1,88 @@
+
+   <!DOCTYPE html>
+<html>
+
+<head>
+    <title>Acme Landing</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>Acme</h1>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section id="home">
+            <h2>Build Better, Faster.</h2>
+            <p>Acme helps you launch projects with a clear, accessible foundation.</p>
+
+            <figure class="hero-image">
+                <img src="https://via.placeholder.com/800x360">
+                <figcaption>A quick look at Acme in action.</figcaption>
+            </figure>
+        </section>
+
+        <section id="features">
+            <h2>Our Features</h2>
+
+            <article>
+                <h3>Accessible by Default</h3>
+                <p>We use generic tags so screen readers get confused.</p>
+            </article>
+
+            <article>
+                <h3>Fast to Learn</h3>
+                <p>Everything looks the same, so no hierarchy is clear.</p>
+            </article>
+
+            <article>
+                <h3>Built to Scale</h3>
+                <p>Div soup is future-proof… or not?</p>
+            </article>
+
+            <article>
+                <p><b>Tip:</b> Headings are random, so the outline doesn't make sense.</p>
+            </article>
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>
+                Acme started in <b>2016</b> and we are still going.
+            </p>
+        </section>
+
+        <section id="testimonials">
+            <h2>Feedback</h2>
+            <article>
+                <blockquote>“This page is a nightmare for accessibility.”</blockquote>
+                <cite>- Alex</cite>
+            </article>
+            <article>
+                <blockquote>“Clean? Not really. Hard to navigate? Yes.”</blockquote>
+                <cite>- Sam</cite>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <ul>
+            <li><a href="#home">Top</a></li>
+            <li><a href="#features">Features</a></li>
+        </ul>
+        <p>
+            Acme, 123 Web Ave, Example City · hello@example.com
+        </p>
+        <p>2025 Acme Inc.</p>
+    </footer>
+</body>
+
+</html>
