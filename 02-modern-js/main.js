@@ -1,5 +1,5 @@
 /**
- * Main entry point for the library management system
+ * Main entry point for the Library Management System
  * Demonstrates ES6 modules, async operations, and coordination of different modules
  */
 
@@ -8,58 +8,120 @@ import libraryManager, { LibraryManager, createBookFormatter, memoize } from './
 import { displayStatistics, displayBooks, displaySearchResults, showBookAnalysis, formatAvailability } from './ui.js';
 
 /**
- * TODO: Implement main application function and variable scoping demonstration
- * runLibraryDemo(): Coordinate all modules, handle null default export, show library features
- * demonstrateScoping(): Show let/const behavior, block scoping, temporal dead zone awareness
+ * ----------------------
+ * Run the main library demo
+ * ----------------------
  */
 async function runLibraryDemo() {
     console.log('🚀 Starting Library Management System Demo');
-    console.log('='.repeat(50));
+    console.log('='.repeat(60));
 
     try {
         // Handle case where default export might be null
         const library = libraryManager || new LibraryManager(books);
 
         demonstrateScoping();
+        demonstrateDestructuring();
 
-        // Display library statistics and demonstrate book operations
-        // Show filtering, grouping, search, and analysis features
-        
+        console.log('\n📊 Library Statistics:');
+        displayStatistics(library.getStatistics());
+
+        console.log('\n🔎 Filtered Books (Available):');
+        const availableBooks = filterBooksByStatus(library.books, 'available');
+        displayBooks(availableBooks);
+
+        console.log('\n📚 Books Grouped by Genre:');
+        const grouped = groupBooksByGenre(library.books);
+        showBookAnalysis(grouped);
+
+        console.log('\n🔄 Generator Example (Book Titles):');
+        showGeneratorExample();
+
+        console.log('\n⚙️  Error Handling Demo:');
+        demonstrateErrorHandling(library);
+
+        console.log('\n🎨 Book Formatting Example:');
+        const formatter = createBookFormatter(createBookSummary);
+        displayBooks(formatter(library.books));
+
     } catch (error) {
-        console.error('Application error:', error.message);
+        console.error('Application error:', error?.message ?? error);
     } finally {
         console.log('\n✅ Demo completed!');
+        console.log('='.repeat(60));
     }
 }
 
+/**
+ * ----------------------
+ * Demonstrate variable scoping (let/const, block scoping, temporal dead zone)
+ * ----------------------
+ */
 function demonstrateScoping() {
     console.log('\n🔍 === VARIABLE SCOPING DEMO ===');
-    // Show const/let behavior, block scoping, temporal dead zone
+
+    const globalConst = 'I am constant';
+    let globalLet = 'I can change';
+
+    {
+        let blockLet = 'Block scoped let';
+        const blockConst = 'Block scoped const';
+        console.log('Inside block:', blockLet, blockConst);
+        // globalConst = 'try change'; // ❌ Would throw error
+        globalLet = 'Updated global let inside block';
+    }
+
+    console.log('Outside block:', globalConst, globalLet);
 }
 
 /**
- * TODO: Implement error handling and generator demonstrations  
- * demonstrateErrorHandling(library): Show try/catch, optional chaining, nullish coalescing
- * showGeneratorExample(): Use bookTitleGenerator to iterate through titles
+ * ----------------------
+ * Demonstrate destructuring with rest pattern
+ * ----------------------
+ */
+function demonstrateDestructuring() {
+    console.log('\n📖 === DESTRUCTURING DEMO ===');
+    const [firstBook, secondBook, ...remainingBooks] = books;
+    console.log('First Book:', firstBook.title);
+    console.log('Second Book:', secondBook.title);
+    console.log('Remaining Books Count:', remainingBooks.length);
+}
+
+/**
+ * ----------------------
+ * Demonstrate safe error handling with optional chaining and nullish coalescing
+ * ----------------------
  */
 function demonstrateErrorHandling(library) {
     console.log('\n⚠️  === ERROR HANDLING DEMO ===');
-    // Test safe property access, array methods on potentially undefined values
-}
 
-function showGeneratorExample() {
-    console.log('\n🔄 === GENERATOR DEMO ===');
-    // Use bookTitleGenerator and show iteration
+    // Access a property safely using optional chaining
+    const bookWithAvailability = library.books[2]?.availability?.status ?? 'Unknown status';
+    console.log('Third book availability status:', bookWithAvailability);
+
+    // Try-catch example
+    try {
+        const undefinedFunction = null;
+        undefinedFunction(); // Will throw
+    } catch (err) {
+        console.error('Caught error:', err.message);
+    }
 }
 
 /**
- * TODO: Start the application and demonstrate array destructuring
- * Call runLibraryDemo() when module loads
- * Show destructuring with first book, second book, and rest pattern
+ * ----------------------
+ * Demonstrate generator iteration
+ * ----------------------
  */
-// Start application and show destructuring example
-console.log('\n📖 === DESTRUCTURING DEMO ===');
-const [firstBook, secondBook, ...remainingBooks] = books;
-// Display destructured results
+function showGeneratorExample() {
+    console.log('\n🔄 === GENERATOR DEMO ===');
+    const generator = bookTitleGenerator(books);
+    for (const title of generator) {
+        console.log('Book Title:', title);
+    }
+}
 
+// ----------------------
+// Start the application
+// ----------------------
 runLibraryDemo();
