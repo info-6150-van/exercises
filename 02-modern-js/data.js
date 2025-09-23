@@ -1,6 +1,6 @@
 /**
- * Data module for library management system
- * Demonstrates modern JavaScript data structures and manipulation
+ * Data module for Library Management System
+ * Demonstrates modern JavaScript features: Map, Set, destructuring, generators, and more
  */
 
 // Sample book data
@@ -27,7 +27,7 @@ export const books = [
         author: "Gang of Four",
         year: 1994,
         genre: "Software Engineering"
-        // Note: availability is intentionally missing for some books
+        // availability is intentionally missing
     },
     {
         id: 4,
@@ -39,36 +39,62 @@ export const books = [
     }
 ];
 
-// TODO: Create a Map for book categories and a Set for unique authors
-// Map: "Programming" -> "Books about programming languages and techniques"
-//      "Software Engineering" -> "Books about software design and architecture"
-// Set: Extract all unique author names from the books array using spread operator
-export const categoryDescriptions = null; // Replace with your Map
-export const uniqueAuthors = null; // Replace with your Set
+// ----------------------
+// Map for book categories
+export const categoryDescriptions = new Map([
+    ["Programming", "Books about programming languages and techniques"],
+    ["Software Engineering", "Books about software design and architecture"]
+]);
 
-/**
- * TODO: Implement filterBooksByStatus and groupBooksByGenre functions
- * filterBooksByStatus: Use array filter method and optional chaining for availability
- * groupBooksByGenre: Return Map with genre as key, array of books as value
- */
+// ----------------------
+// Set for unique authors
+export const uniqueAuthors = new Set(books.map(book => book.author));
+
+// ----------------------
+// Filter books by availability status
 export function filterBooksByStatus(bookArray, status) {
-    // Filter books by availability status, handle undefined availability
+    return bookArray.filter(
+        book => book.availability?.status === status
+    );
 }
 
+// ----------------------
+// Group books by genre
 export function groupBooksByGenre(bookArray) {
-    // Group books into Map by genre
+    return bookArray.reduce((map, book) => {
+        const genre = book.genre;
+        if (!map.has(genre)) {
+            map.set(genre, []);
+        }
+        map.get(genre).push(book);
+        return map;
+    }, new Map());
 }
 
-/**
- * TODO: Create generator function and book summary function
- * bookTitleGenerator: Generator that yields each book title using for...of
- * createBookSummary: Use destructuring and template literals for formatted output
- * Example: "The Clean Coder by Robert C. Martin (2011) - Available at A1-23"
- */
+// ----------------------
+// Generator for book titles
 export function* bookTitleGenerator(bookArray) {
-    // Yield book titles one by one
+    for (const { title } of bookArray) {
+        yield title;
+    }
 }
 
+// ----------------------
+// Create formatted book summary
 export function createBookSummary(book) {
-    // Destructure book properties and create formatted summary
+    const {
+        title,
+        author,
+        year,
+        availability: { status, location, dueDate } = {}
+    } = book;
+
+    const availabilityText =
+        status === "available"
+            ? `Available at ${location}`
+            : status === "checked_out"
+            ? `Checked out, due on ${dueDate}`
+            : "Availability unknown";
+
+    return `${title} by ${author} (${year}) - ${availabilityText}`;
 }
