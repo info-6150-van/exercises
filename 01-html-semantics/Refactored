@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <style>
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;             
+    padding: 30px;
+    background-color: #0a3d71;
+}
+
+
+h1 {
+    margin: 0;
+    font-size: 40px;
+    color: #000000;
+}
+
+
+.main-nav ul {
+    display: flex;
+    justify-content: space-around; 
+    list-style: none;                
+    border: 2px solid #333;         
+    padding: 30px 40px;   
+    background-color: rgb(222, 180, 116);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0;                   
+    gap: 30px;
+}                       
+
+.navigation {
+    cursor: grab;
+    transition: transform 0.3s ease;
+}
+
+.navigation:hover {
+    transform: rotate(20deg);
+    cursor: grab;
+}
+
+
+.navigation a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 15px;
+}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acme Landing</title>
+</head>
+<body>
+    <header>
+        <h1>Acme</h1>
+        <nav class="main-nav">
+            <ul>
+                <li class="navigation"><a href="#features">Features</a></li>
+                <li class="navigation"><a href="#about">About</a></li>
+                <li class="navigation"><a href="#testimonials">Testimonials</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>          
+        <section id="home"> 
+            <h2>Build Better, Faster.</h2> 
+            <p>Acme helps you launch projects with a clear, accessible foundation.</p>
+            <figure>
+                <img src="https://via.placeholder.com/800x360" alt="Screenshot mockup of the Acme product">
+                <figcaption>A quick look at Acme in action.</figcaption> 
+            </figure>
+        </section>
+        
+        <section id="features" aria-labelledby="features-title">  
+            <h2 id="features-title">Our Features</h2>
+            <article> 
+                <h3>Accessible by Default</h3>
+                <p>We use semantic tags so screen readers understand content easily.</p>
+            </article>
+            <article>
+                <h3>Fast to Learn</h3>
+                <p>Use hierarchy and meaningful structure to make navigation easy.</p>
+            </article>
+            <article>
+                <h3>Built to Scale</h3>
+                <p>Semantic HTML makes it easy for future maintenance.</p>
+            </article>
+            <aside aria-label="Pro tip">
+                <p><strong>Tip:</strong> Apply headers in heirachy for better outline</p> 
+            </aside>
+        </section>
+        
+        <section id="about" aria-labelledby="about-title">
+            <h2 id="about-title">About Us</h2>
+            <p>
+                Acme started in <strong datetime="2016">2016</strong> and we are still going.    /* defined datetime, and i applied strong element for bold
+            </p>
+        </section>
+        
+        <section id="testimonials" aria-labelledby="testimonials-title">
+            <h2 id="testimonials-title">Feedback</h2>
+            <article>
+                <blockquote>
+                    <p>"This page is now refracted for easy accesibility."</p>
+                </blockquote>
+                <cite>- Uthman</cite>
+            </article>
+            <article>
+                <blockquote>
+                    <p>"Clean and easy to navigate now."</p> 
+                </blockquote>
+                <cite>- Uthman</cite>
+            </article>
+        </section>
+    </main>
+    
+    <footer>
+        <nav aria-label="Footer navigation"> 
+            <ul>
+                <li><a href="#home">Top</a></li>
+                <li><a href="#features">Features</a></li>
+            </ul>
+        </nav>
+        <address>
+            Acme, Inc. · 123 Web Ave · Example City, EC 00000 · 
+            <a href="mailto:hello@example.com">hello@example.com</a>
+        </address> 
+        <small>
+            © <time datetime="2025">2025</time> Acme, Inc. All rights reserved.
+        </small>
+    </footer>
+</body>
+</html>
