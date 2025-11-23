@@ -43,8 +43,12 @@ export const books = [
 // Map: "Programming" -> "Books about programming languages and techniques"
 //      "Software Engineering" -> "Books about software design and architecture"
 // Set: Extract all unique author names from the books array using spread operator
-export const categoryDescriptions = null; // Replace with your Map
-export const uniqueAuthors = null; // Replace with your Set
+export const categoryDescriptions = new Map([
+    ["Programming", "Books about programming languages and techniques"],
+    ["Software Engineering", "Books about software design and architecture"]
+]);
+
+export const uniqueAuthors = new Set(books.map(book => book.author));
 
 /**
  * TODO: Implement filterBooksByStatus and groupBooksByGenre functions
@@ -53,10 +57,21 @@ export const uniqueAuthors = null; // Replace with your Set
  */
 export function filterBooksByStatus(bookArray, status) {
     // Filter books by availability status, handle undefined availability
+    return bookArray.filter(
+        book => book.availability?.status === status
+    );
 }
 
 export function groupBooksByGenre(bookArray) {
     // Group books into Map by genre
+    return bookArray.reduce((map, book) => {
+        const genre = book.genre;
+        if (!map.has(genre)) {
+            map.set(genre, []);
+        }
+        map.get(genre).push(book);
+        return map;
+    }, new Map());
 }
 
 /**
@@ -67,8 +82,21 @@ export function groupBooksByGenre(bookArray) {
  */
 export function* bookTitleGenerator(bookArray) {
     // Yield book titles one by one
+    for (const book of bookArray) {
+        yield book.title;
+    }
 }
 
 export function createBookSummary(book) {
     // Destructure book properties and create formatted summary
+    const { title, author, year, availability } = book;
+    
+    let availabilityText = "Availability unknown";
+    if (availability?.status === "available") {
+        availabilityText = `Available at ${availability.location}`;
+    } else if (availability?.status === "checked_out") {
+        availabilityText = `Checked out, due on ${availability.dueDate}`;
+    }
+    
+    return `${title} by ${author} (${year}) - ${availabilityText}`;
 }
