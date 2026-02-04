@@ -13,28 +13,59 @@ import { displayStatistics, displayBooks, displaySearchResults, showBookAnalysis
  * demonstrateScoping(): Show let/const behavior, block scoping, temporal dead zone awareness
  */
 async function runLibraryDemo() {
-    console.log('🚀 Starting Library Management System Demo');
+    console.log(' Starting Library Management System Demo');
     console.log('='.repeat(50));
 
     try {
         // Handle case where default export might be null
-        const library = libraryManager || new LibraryManager(books);
+        const library = libraryManager ?? new LibraryManager(books);
 
         demonstrateScoping();
 
-        // Display library statistics and demonstrate book operations
-        // Show filtering, grouping, search, and analysis features
+        displayStatistics(library.getStatistics());
+
+        const availableBooks = filterBooksByStatus(library.books, 'available');
+        displayBooks('Available Books', availableBooks);
+
+        const searchResults = library.searchBooks({ author: 'john' });
+        displaySearchResults(searchResults);
+
+        const formatter = createBookFormatter(createBookSummary);
+        const memoizedFormatter = memoize(formatter);
+        showBookAnalysis(memoizedFormatter(library.books));
+
+        demonstrateErrorHandling(library);
+        showGeneratorExample();
+
+        const booksByGenre = groupBooksByGenre(library.books);
+        console.log('\n Books Grouped by Genre:', booksByGenre);
         
     } catch (error) {
         console.error('Application error:', error.message);
     } finally {
-        console.log('\n✅ Demo completed!');
+        console.log('\n Demo completed!');
     }
 }
 
 function demonstrateScoping() {
-    console.log('\n🔍 === VARIABLE SCOPING DEMO ===');
-    // Show const/let behavior, block scoping, temporal dead zone
+    console.log('\n === VARIABLE SCOPING DEMO ===');
+    const appName = 'Library App';
+    let counter = 0;
+
+    if (true) {
+        let counter = 10; 
+        const blockOnly = 'Inside block';
+        console.log('Block counter:', counter);
+        console.log(blockOnly);
+
+        }
+
+    counter++;
+    console.log('Outer counter:', counter);
+    console.log('App name:', appName);
+
+    console.log('Temporal Dead Zone exists before let/const declarations');
+    
 }
 
 /**
@@ -43,13 +74,28 @@ function demonstrateScoping() {
  * showGeneratorExample(): Use bookTitleGenerator to iterate through titles
  */
 function demonstrateErrorHandling(library) {
-    console.log('\n⚠️  === ERROR HANDLING DEMO ===');
-    // Test safe property access, array methods on potentially undefined values
+    console.log('\n  === ERROR HANDLING DEMO ===');
+   
+    try {
+        const unknownBooks = library?.nonExistentProperty ?? [];
+        console.log('Safe fallback length:', unknownBooks.length);
+
+        const status = library.books[0]?.availability?.status ?? 'unknown';
+        console.log('First book status:', formatAvailability(status));
+
+    } catch (err) {
+        console.error('Handled error:', err.message);
+    }
 }
 
+
 function showGeneratorExample() {
-    console.log('\n🔄 === GENERATOR DEMO ===');
-    // Use bookTitleGenerator and show iteration
+    console.log('\n === GENERATOR DEMO ===');
+
+    const generator = bookTitleGenerator(books);
+    for (const title of generator) {
+        console.log('', title);
+    }
 }
 
 /**
@@ -58,8 +104,11 @@ function showGeneratorExample() {
  * Show destructuring with first book, second book, and rest pattern
  */
 // Start application and show destructuring example
-console.log('\n📖 === DESTRUCTURING DEMO ===');
+console.log('\n === DESTRUCTURING DEMO ===');
 const [firstBook, secondBook, ...remainingBooks] = books;
-// Display destructured results
+
+console.log('First book:', firstBook?.title);
+console.log('Second book:', secondBook?.title);
+console.log('Remaining count:', remainingBooks.length);
 
 runLibraryDemo();

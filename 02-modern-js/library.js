@@ -20,12 +20,24 @@ export class LibraryManager {
      * addBooks(...newBooks): Add multiple books using spread operator, update statistics
      * searchBooks({title, author, genre} = {}, caseSensitive = false): Search with destructuring and optional chaining
      */
-    addBooks(...newBooks) {
-        // Add books using spread operator and update statistics
+    addBooks(...newBooks) { 
+        this.books.push(...newBooks);
+        this.#updateStatistics();
     }
 
-    searchBooks({ title, author, genre } = {}, caseSensitive = false) {
-        // Implement search logic with destructuring and optional chaining
+    searchBooks({ title, author, genre } = {}, caseSensitive = false) {return this.books.filter(book => {
+            const normalize = value =>
+                caseSensitive ? value : value?.toLowerCase();
+
+            return (
+                (!title ||
+                    normalize(book.title)?.includes(normalize(title))) &&
+                (!author ||
+                    normalize(book.author)?.includes(normalize(author))) &&
+                (!genre ||
+                    normalize(book.genre)?.includes(normalize(genre)))
+            );
+        }); 
     }
 
     /**
@@ -33,12 +45,22 @@ export class LibraryManager {
      * getStatistics(): Return computed statistics object with total, available, checked out counts
      * updateBook(book, updates): Use logical assignment operators (??=, ||=, &&=)
      */
-    getStatistics() {
-        // Return statistics with computed property names
+    getStatistics() {return {
+            total: this.#statistics.total,
+            available: this.#statistics.available,
+            checkedOut: this.#statistics.checkedOut
+        };
     }
 
-    updateBook(book, updates) {
-        // Use logical assignment operators to update book properties
+    updateBook(book, updates) {if (!this.books.includes(book)) return;
+
+        for (const [key, value] of Object.entries(updates)) {
+            book[key] ??= value;   
+            book[key] ||= value;   
+            book[key] &&= value;   
+        }
+
+        this.#updateStatistics();
     }
 
     /**
@@ -47,22 +69,35 @@ export class LibraryManager {
      * memoize(fn): Use Map to cache function results
      */
     #updateStatistics() {
-        // Calculate statistics and store in private field
         this.#statistics = {
             total: this.books.length,
-            available: this.books.filter(book => book.availability?.status === 'available').length,
-            checkedOut: this.books.filter(book => book.availability?.status === 'checked_out').length
+            available: this.books.filter(
+                book => book.availability?.status === 'available'
+            ).length,
+            checkedOut: this.books.filter(
+                book => book.availability?.status === 'checked_out'
+            ).length
         };
     }
 }
 
 export const createBookFormatter = (formatter) => {
-    // Return function that applies formatter to book arrays
+    return (books = []) => books.map(formatter);
 };
 
-export const memoize = (fn) => {
-    // Use Map to cache expensive function results
+export const memoize = (fn) => {const cache = new Map();
+
+    return (...args) => {
+        const key = JSON.stringify(args);
+
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+
+        const result = fn(...args);
+        cache.set(key, result);
+        return result;
+    };
 };
 
-// Export default library instance
 export default new LibraryManager(books);

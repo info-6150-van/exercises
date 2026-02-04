@@ -1,85 +1,122 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Acme Landing</title>
-    <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <title>Acme Landing</title>
 </head>
 
 <body>
-    <div>
-        <div>
-            <h3>Acme</h3>
-            <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-            </ul>
-        </div>
+
+  <header>
+    <div class="branding">
+      <h1>Acme</h1>
     </div>
 
-    <div id="home">
-        <h4>Build Better, Faster.</h4>
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="home" aria-labelledby="hero-heading">
+      <header>
+        <h2 id="hero-heading">Build Better, Faster.</h2>
         <p>Acme helps you launch projects with a clear, accessible foundation.</p>
+      </header>
 
-        <div>
-            <img src="https://via.placeholder.com/800x360">
-            <p>A quick look at Acme in action.</p>
-        </div>
-    </div>
+      <figure>
+        <img
+          src="https://via.placeholder.com/800x360"
+          alt="Screenshot showing Acme product interface"
+        />
+        <figcaption>A quick look at Acme in action.</figcaption>
+      </figure>
+    </section>
+    <section id="features" aria-labelledby="features-heading">
+      <header>
+        <h2 id="features-heading">Our Features</h2>
+      </header>
 
-    <div id="features">
-        <h5>Our Features</h5>
+      <article>
+        <h3>Accessible by Default</h3>
+        <p>We use generic tags so screen readers get confused.</p>
+      </article>
 
-        <div>
-            <h6>Accessible by Default</h6>
-            <p>We use generic tags so screen readers get confused.</p>
-        </div>
+      <article>
+        <h3>Fast to Learn</h3>
+        <p>Everything looks the same, so no hierarchy is clear.</p>
+      </article>
 
-        <div>
-            <h6>Fast to Learn</h6>
-            <p>Everything looks the same, so no hierarchy is clear.</p>
-        </div>
+      <article>
+        <h3>Built to Scale</h3>
+        <p>Div soup is future-proof… or not?</p>
+      </article>
 
-        <div>
-            <h6>Built to Scale</h6>
-            <p>Div soup is future-proof… or not?</p>
-        </div>
-
-        <div>
-            <p><b>Tip:</b> Headings are random, so the outline doesn't make sense.</p>
-        </div>
-    </div>
-
-    <div id="about">
-        <h5>About Us</h5>
+      <aside>
         <p>
-            Acme started in <b>2016</b> and we are still going.
+          <strong>Tip:</strong> Headings are random, so the outline doesn't make sense.
         </p>
-    </div>
+      </aside>
+    </section>
 
-    <div id="testimonials">
-        <h5>Feedback</h5>
-        <div>
-            <p>“This page is a nightmare for accessibility.”</p>
-            <p>- Alex</p>
-        </div>
-        <div>
-            <p>“Clean? Not really. Hard to navigate? Yes.”</p>
-            <p>- Sam</p>
-        </div>
-    </div>
+    <section id="about" aria-labelledby="about-heading">
+      <header>
+        <h2 id="about-heading">About Us</h2>
+      </header>
 
-    <div>
-        <ul>
-            <li><a href="#home">Top</a></li>
-            <li><a href="#features">Features</a></li>
-        </ul>
-        <p>
-            Acme, 123 Web Ave, Example City · hello@example.com
-        </p>
-        <p>2025 Acme Inc.</p>
-    </div>
+      <p>
+        Acme started in <time datetime="2016">2016</time> and we are still going.
+      </p>
+    </section>
+
+    <section id="testimonials" aria-labelledby="testimonials-heading">
+      <header>
+        <h2 id="testimonials-heading">Feedback</h2>
+      </header>
+
+      <article>
+        <blockquote>
+          <p>“This page is a nightmare for accessibility.”</p>
+          <footer>
+            <cite>— Alex</cite>
+          </footer>
+        </blockquote>
+      </article>
+
+      <article>
+        <blockquote>
+          <p>“Clean? Not really. Hard to navigate? Yes.”</p>
+          <footer>
+            <cite>— Sam</cite>
+          </footer>
+        </blockquote>
+      </article>
+    </section>
+
+  </main>
+  
+  <footer>
+    <nav aria-label="Footer navigation">
+      <ul>
+        <li><a href="#home">Top</a></li>
+        <li><a href="#features">Features</a></li>
+      </ul>
+    </nav>
+
+    <address>
+      <p>
+        Acme, 123 Web Ave, Example City ·
+        <a href="mailto:hello@example.com">hello@example.com</a>
+      </p>
+    </address>
+
+    <p>
+      <time datetime="2025">2025</time> Acme Inc.
+    </p>
+  </footer>
+
 </body>
-
 </html>

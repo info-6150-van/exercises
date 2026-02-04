@@ -7,29 +7,66 @@
  * displayStatistics(statistics): Extract properties with destructuring, format with template literals
  * displayBooks(books, title): Show formatted book list, use optional chaining for availability
  */
-export function displayStatistics(statistics) {
-    // Use destructuring to extract statistics properties
-    // Use template literals for formatted console output
+export function displayStatistics(statistics) {onst { total, available, checkedOut } = statistics;
+
+    console.log('\n === LIBRARY STATISTICS ===');
+    console.log(`
+Total books   : ${total}
+Available    : ${available}
+Checked out  : ${checkedOut}
+    `.trim());
+}
+   export function displayBooks(books, title = 'Books') {
+    console.log(`\n === ${title.toUpperCase()} ===`);
+
+    if (!books?.length) {
+        console.log('No books to display.');
+        return;
+    }
+
+    books.forEach(({ title, author, genre, availability }) => {
+        const status = availability?.status ?? 'unknown';
+
+        console.log(
+            `• "${title}" by ${author} [${genre}] — ${formatAvailability(status)}`
+        );
+    });
 }
 
-export function displayBooks(books, title = "Books") {
-    // Display books with formatted output using template literals
-    // Handle undefined availability with optional chaining
-}
 
 /**
  * TODO: Implement search results and availability formatting
  * displaySearchResults(results, criteria): Show search results with dynamic title
  * formatAvailability(availability): Return formatted status string with optional chaining
  */
-export function displaySearchResults(searchResults, searchCriteria) {
-    // Use destructuring for search criteria
-    // Create dynamic title with template literals
+export function displaySearchResults(searchResults, searchCriteria = {}) {
+    const { title, author, genre } = searchCriteria;
+
+    const criteriaText = [
+        title && `title: "${title}"`,
+        author && `author: "${author}"`,
+        genre && `genre: "${genre}"`
+    ]
+        .filter(Boolean)
+        .join(', ') || 'all books';
+
+    console.log(`\n === SEARCH RESULTS (${criteriaText}) ===`);
+
+    displayBooks(searchResults, 'Search Results');
 }
 
+
 export function formatAvailability(availability) {
-    // Use optional chaining and nullish coalescing
-    // Return formatted status with appropriate symbols
+    const status = availability?.toLowerCase?.() ?? 'unknown';
+
+    switch (status) {
+        case 'available':
+            return 'Available';
+        case 'checked_out':
+            return 'Checked Out';
+        default:
+            return ' Unknown';
+    }
 }
 
 /**
@@ -38,8 +75,29 @@ export function formatAvailability(availability) {
  * Calculate most common decade, genre distribution, etc.
  */
 export function showBookAnalysis(books) {
-    console.log('\n🔍 === BOOK ANALYSIS ===');
-    
-    // Use modern array methods to analyze the book collection
-    // Show publication decades, genre counts, etc.
+    console.log('\n === BOOK ANALYSIS ===');
+
+    if (!books?.length) {
+        console.log('No books available for analysis.');
+        return;
+    }
+    const decades = books
+        .map(book => Math.floor(book.year / 10) * 10)
+        .reduce((acc, decade) => {
+            acc[decade] = (acc[decade] || 0) + 1;
+            return acc;
+        }, {});
+    const genres = books.reduce((acc, { genre }) => {
+        acc[genre] = (acc[genre] || 0) + 1;
+        return acc;
+    }, {});
+    const mostCommonDecade = Object.entries(decades).reduce(
+        (max, current) => (current[1] > max[1] ? current : max)
+    );
+
+    console.log('Publication decades:', decades);
+    console.log(' Genre distribution:', genres);
+    console.log(
+        ` Most common decade: ${mostCommonDecade[0]}s (${mostCommonDecade[1]} books)`
+    );
 }

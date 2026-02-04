@@ -27,7 +27,7 @@ export const books = [
         author: "Gang of Four",
         year: 1994,
         genre: "Software Engineering"
-        // Note: availability is intentionally missing for some books
+        // availability intentionally missing
     },
     {
         id: 4,
@@ -43,8 +43,13 @@ export const books = [
 // Map: "Programming" -> "Books about programming languages and techniques"
 //      "Software Engineering" -> "Books about software design and architecture"
 // Set: Extract all unique author names from the books array using spread operator
-export const categoryDescriptions = null; // Replace with your Map
-export const uniqueAuthors = null; // Replace with your Set
+
+export const categoryDescriptions = new Map([
+    ["Programming", "Books about programming languages and techniques"],
+    ["Software Engineering", "Books about software design and architecture"]
+]);
+
+export const uniqueAuthors = new Set([...books.map(book => book.author)]);
 
 /**
  * TODO: Implement filterBooksByStatus and groupBooksByGenre functions
@@ -52,11 +57,18 @@ export const uniqueAuthors = null; // Replace with your Set
  * groupBooksByGenre: Return Map with genre as key, array of books as value
  */
 export function filterBooksByStatus(bookArray, status) {
-    // Filter books by availability status, handle undefined availability
+    return bookArray.filter(book => book.availability?.status === status);
 }
 
 export function groupBooksByGenre(bookArray) {
-    // Group books into Map by genre
+    const genreMap = new Map();
+    for (const book of bookArray) {
+        if (!genreMap.has(book.genre)) {
+            genreMap.set(book.genre, []);
+        }
+        genreMap.get(book.genre).push(book);
+    }
+    return genreMap;
 }
 
 /**
@@ -66,9 +78,23 @@ export function groupBooksByGenre(bookArray) {
  * Example: "The Clean Coder by Robert C. Martin (2011) - Available at A1-23"
  */
 export function* bookTitleGenerator(bookArray) {
-    // Yield book titles one by one
-}
+    for (const book of bookArray) {
+        yield book.title;
+    }
+}  // Yield book titles one by one
+
 
 export function createBookSummary(book) {
-    // Destructure book properties and create formatted summary
+    const { title, author, year, availability } = book;
+    const status = availability?.status ?? "Unknown";
+    const locationOrDue = availability?.location ?? availability?.dueDate ?? "N/A";
+
+    const statusText = status === "available"
+        ? `Available at ${locationOrDue}`
+        : status === "checked_out"
+        ? `Checked out, due ${locationOrDue}`
+        : "Status unknown";
+
+    return `${title} by ${author} (${year}) - ${statusText}`;
 }
+
