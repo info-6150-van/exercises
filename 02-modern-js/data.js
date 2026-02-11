@@ -44,8 +44,8 @@ export const books = [
 //      "Software Engineering" -> "Books about software design and architecture"
 // Set: Extract all unique author names from the books array using spread operator
 
-export const categoryDescriptions = new  Map([["Programming""Books about programming languages and techniques"],
-["Software Engineering""Books about software design and architecture"]]); // Replace with your Map
+export const categoryDescriptions = new  Map([["Programming","Books about programming languages and techniques"],
+["Software Engineering","Books about software design and architecture"]]); // Replace with your Map
 
 export const uniqueAuthors = new Set([...books].Map[books.author]); // Replace with your Set
 
@@ -96,5 +96,5 @@ export function createBookSummary(book) {
         author,
         availability:{status,location}={}
     }=book;
-    return ${title} by ${author} (${year}) - ${status==="available" ? 'Available at ${location}' : "Not available"};
+    return `${title} by ${author} (${year})  ${status==="available" ? 'Available at ${location}' : "Not available"}`;
 }
