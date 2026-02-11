@@ -1,54 +1,66 @@
-/**
- * Library management module demonstrating modern JavaScript features
- */
+import { books } from "./data.js";
 
-import { books, categoryDescriptions, uniqueAuthors, filterBooksByStatus, groupBooksByGenre } from './data.js';
-
-/**
- * LibraryManager class demonstrating modern JavaScript class features
- */
 export class LibraryManager {
-    #statistics = {}; // Private field for storing statistics
+    #statistics = {};
 
-    constructor(initialBooks = []) {
-        this.books = [...initialBooks]; // Shallow copy using spread
+    constructor(initialBooks = []){
+        this.books = [...initialBooks];
         this.#updateStatistics();
     }
 
-    /**
-     * TODO: Implement addBooks method using rest parameters and search functionality
-     * addBooks(...newBooks): Add multiple books using spread operator, update statistics
-     * searchBooks({title, author, genre} = {}, caseSensitive = false): Search with destructuring and optional chaining
-     */
-    addBooks(...newBooks) {
-        // Add books using spread operator and update statistics
+    addBooks(...newBooks){
+        this.books.push(...newBooks);
+        this.#updateStatistics();
     }
 
-    searchBooks({ title, author, genre } = {}, caseSensitive = false) {
-        // Implement search logic with destructuring and optional chaining
+    searchBooks({title, author, genre} = {}, caseSensitive = false){
+        return this.books.filter(book => {
+            const bookTitle = book.title ?? '';
+            const bookAuthor = book.author ?? '';
+            const bookGenre = book.genre ?? '';
+
+            const titleMatch = title
+                ? caseSensitive
+                    ? bookTitle.includes(title)
+                    : bookTitle.toLowerCase().includes(title.toLowerCase())
+                : true;
+
+           const authorMatch = author
+                ? caseSensitive
+                    ? bookAuthor.includes(author)
+                    : bookAuthor.toLowerCase().includes(author.toLowerCase())
+                : true;     
+
+            const genreMatch = genre
+                ? caseSensitive
+                    ? bookGenre.includes(genre)
+                    : bookGenre.toLowerCase().includes(genre.toLowerCase())
+                : true;    
+
+        return titleMatch && authorMatch && genreMatch;        
+        });
     }
 
-    /**
-     * TODO: Implement getStatistics and updateBook methods
-     * getStatistics(): Return computed statistics object with total, available, checked out counts
-     * updateBook(book, updates): Use logical assignment operators (??=, ||=, &&=)
-     */
-    getStatistics() {
-        // Return statistics with computed property names
+    getStatistics(){
+        return{
+            total: this.books.length,
+            available: this.books.filter(book => book.availability?.status === 'available').length,
+            checkedOut: this.books.filter(book => book.availability?.status === 'checked_out').length
+        };
     }
 
     updateBook(book, updates) {
-        // Use logical assignment operators to update book properties
+        book.title ||= updates.title;
+        book.author ||= updates.author;
+        book.genre ||= updates.genre;
+        book.year ??= updates.year;
+        book.availability ||= updates.availability;
+
+        this.#updateStatistics();
     }
 
-    /**
-     * TODO: Implement higher-order functions and memoization
-     * createBookFormatter(formatter): Return function that applies formatter to book arrays
-     * memoize(fn): Use Map to cache function results
-     */
-    #updateStatistics() {
-        // Calculate statistics and store in private field
-        this.#statistics = {
+    #updateStatistics(){
+        this.#statistics ={
             total: this.books.length,
             available: this.books.filter(book => book.availability?.status === 'available').length,
             checkedOut: this.books.filter(book => book.availability?.status === 'checked_out').length
@@ -57,12 +69,18 @@ export class LibraryManager {
 }
 
 export const createBookFormatter = (formatter) => {
-    // Return function that applies formatter to book arrays
+    return (bookArray) => bookArray.map(formatter);
 };
 
 export const memoize = (fn) => {
-    // Use Map to cache expensive function results
+    const cache = new Map();
+    return (...args) => {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) return cache.get(key);
+        const result = fn(...args);
+        cache.set(key, result);
+        return result;
+    };
 };
 
-// Export default library instance
 export default new LibraryManager(books);
