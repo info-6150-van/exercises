@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INFO 6150 - Modern JS Exercises</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <h1>Modern JavaScript Exercises</h1>
+      <p>Exercise A: DOM + Event Delegation | Exercise B: Fetch + Promises + Async/Await</p>
+    </header>
+
+    <main class="container">
+      <!-- ============ Exercise A ============ -->
+      <section class="card" aria-labelledby="ex-a-title">
+        <h2 id="ex-a-title">Exercise A — Dynamic To-Do List</h2>
+
+        <div class="row">
+          <label class="label" for="todo-input">New item</label>
+          <input id="todo-input" class="input" type="text" placeholder="Type a task..." />
+          <button id="add-btn" class="btn" type="button">Add</button>
+        </div>
+
+        <p class="hint">
+          Requirement: each item has a Remove button; parent &lt;ul&gt; must handle remove using event delegation.
+        </p>
+
+        <ul id="todo-list" class="list" aria-live="polite"></ul>
+      </section>
+
+      <!-- ============ Exercise B ============ -->
+      <section class="card" aria-labelledby="ex-b-title">
+        <h2 id="ex-b-title">Exercise B — Fetch User & Posts (Async Handling)</h2>
+
+        <div class="row">
+          <label class="label" for="user-id">User ID</label>
+          <input id="user-id" class="input" type="number" min="1" max="10" value="1" />
+          <button id="run-promise" class="btn" type="button">Run Promise Chain</button>
+          <button id="run-async" class="btn btn-secondary" type="button">Run Async/Await</button>
+        </div>
+
+        <p class="hint">
+          Requirement: implement getUser(id) and getPosts(userId). First use Promise chaining, then async/await + try/catch.
+          Display user name/email and post titles in the DOM.
+        </p>
+
+        <div id="result" class="result">
+          <div class="status" id="status">Ready.</div>
+          <div class="user" id="user"></div>
+          <ul class="list" id="posts"></ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- IMPORTANT: type="module" for ES modules -->
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
