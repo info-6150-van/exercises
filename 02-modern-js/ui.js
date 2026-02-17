@@ -11,7 +11,7 @@ export function displayStatistics(statistics) {
     // Use destructuring to extract statistics properties
     // Use template literals for formatted console output
     const { total, available, checkedOut } = statistics;
-    console.log(`\n📊 Library Statistics:
+    console.log(`\n Library Statistics:
     Total Books: ${total}
     Available: ${available}
     Checked Out: ${checkedOut}`); 
@@ -20,7 +20,7 @@ export function displayStatistics(statistics) {
 export function displayBooks(books, title = "Books") {
     // Display books with formatted output using template literals
     
-    console.log(`\n📚 ${title}:`);
+    console.log(`\n ${title}:`);
     // Use optional chaining to handle cases where availability might be undefined
     // Handle undefined availability with optional chaining
 }
@@ -39,7 +39,7 @@ export function displaySearchResults(searchResults, searchCriteria) {
     // Use destructuring for search criteria
     const { query, category } = searchCriteria;
     // Create dynamic title with template literals
-    console.log(`\n🔍 Search Results for "${query}" in category "${category}":`);
+    console.log(`\n Search Results for "${query}" in category "${category}":`);
     searchResults.forEach(book => {
         console.log(`- ${book.title} by ${book.author}`);
     });
@@ -59,7 +59,7 @@ export function formatAvailability(availability) {
  * Calculate most common decade, genre distribution, etc.
  */
 export function showBookAnalysis(books) {
-    console.log('\n🔍 === BOOK ANALYSIS ===');
+    console.log('\n === BOOK ANALYSIS ===');
     
     // Use modern array methods to analyze the book collection
     // Show publication decades, genre counts, etc.
