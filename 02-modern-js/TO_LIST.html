@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dynamic To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    li {
+      margin: 8px 0;
+    }
+    button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>To-Do List</h2>
+
+  <input type="text" id="todoInput" placeholder="Enter a task" />
+  <button id="addBtn">Add</button>
+
+  <ul id="todoList"></ul>
+
+  <script>
+    const addBtn = document.getElementById("addBtn");
+    const todoInput = document.getElementById("todoInput");
+    const todoList = document.getElementById("todoList");
+
+    // Add new todo item
+    addBtn.addEventListener("click", () => {
+      const value = todoInput.value.trim();
+      if (value === "") return;
+
+      const li = document.createElement("li");
+      li.innerHTML = `
+        ${value}
+        <button class="remove-btn">Remove</button>
+      `;
+
+      todoList.appendChild(li);
+      todoInput.value = "";
+    });
+
+    // Event delegation for remove buttons
+    todoList.addEventListener("click", (e) => {
+      if (e.target.classList.contains("remove-btn")) {
+        e.target.parentElement.remove();
+      }
+    });
+  </script>
+
+</body>
+</html>

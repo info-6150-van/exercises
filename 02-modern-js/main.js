@@ -23,8 +23,16 @@ async function runLibraryDemo() {
         demonstrateScoping();
 
         // Display library statistics and demonstrate book operations
+
+        displayStatistics(library.getStatistics());
+        displayBooks(library.books); 
+
         // Show filtering, grouping, search, and analysis features
-        
+
+        const filteredBooks = filterBooksByStatus(library.books, 'available');
+        displaySearchResults(filteredBooks);
+        showBookAnalysis(library.books);
+
     } catch (error) {
         console.error('Application error:', error.message);
     } finally {
@@ -35,6 +43,13 @@ async function runLibraryDemo() {
 function demonstrateScoping() {
     console.log('\n🔍 === VARIABLE SCOPING DEMO ===');
     // Show const/let behavior, block scoping, temporal dead zone
+    {
+        let blockScoped = 'I am block scoped';
+        const constantValue = 'I cannot be reassigned';
+        console.log(blockScoped);
+        console.log(constantValue);
+        
+    }
 }
 
 /**
@@ -45,11 +60,21 @@ function demonstrateScoping() {
 function demonstrateErrorHandling(library) {
     console.log('\n⚠️  === ERROR HANDLING DEMO ===');
     // Test safe property access, array methods on potentially undefined values
+    try {
+        const unavailableBooks = filterBooksByStatus(library.books, 'unavailable');
+        displaySearchResults(unavailableBooks);
+    } catch (error) {
+        console.error('Error during filtering:', error.message);
+    }   
 }
 
 function showGeneratorExample() {
     console.log('\n🔄 === GENERATOR DEMO ===');
     // Use bookTitleGenerator and show iteration
+    const titleGen = bookTitleGenerator(books);
+    for (const title of titleGen) {
+        console.log('Book Title:', title);
+    }   
 }
 
 /**
@@ -61,5 +86,8 @@ function showGeneratorExample() {
 console.log('\n📖 === DESTRUCTURING DEMO ===');
 const [firstBook, secondBook, ...remainingBooks] = books;
 // Display destructured results
+console.log('First Book:', firstBook);
+console.log('Second Book:', secondBook);
+console.log('Remaining Books:', remainingBooks);    
 
 runLibraryDemo();
