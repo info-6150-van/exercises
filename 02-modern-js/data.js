@@ -43,8 +43,11 @@ export const books = [
 // Map: "Programming" -> "Books about programming languages and techniques"
 //      "Software Engineering" -> "Books about software design and architecture"
 // Set: Extract all unique author names from the books array using spread operator
-export const categoryDescriptions = null; // Replace with your Map
-export const uniqueAuthors = null; // Replace with your Set
+
+export const categoryDescriptions = new  Map([["Programming","Books about programming languages and techniques"],
+["Software Engineering","Books about software design and architecture"]]); // Replace with your Map
+
+export const uniqueAuthors = new Set([...books].Map[books.author]); // Replace with your Set
 
 /**
  * TODO: Implement filterBooksByStatus and groupBooksByGenre functions
@@ -52,10 +55,21 @@ export const uniqueAuthors = null; // Replace with your Set
  * groupBooksByGenre: Return Map with genre as key, array of books as value
  */
 export function filterBooksByStatus(bookArray, status) {
+    return bookArray.filter(book=>book.availability?.status===status);
     // Filter books by availability status, handle undefined availability
 }
 
 export function groupBooksByGenre(bookArray) {
+    const genreMap = new Map();
+
+    bookArray.forEach(book=>{const genre = book.genre;
+        if (!genreMap.has(genre)) {
+            genreMap.Set(genre,[]);
+        }
+        genreMap.get(genre).push(book)
+    })
+
+    return genreMap;
     // Group books into Map by genre
 }
 
@@ -67,8 +81,20 @@ export function groupBooksByGenre(bookArray) {
  */
 export function* bookTitleGenerator(bookArray) {
     // Yield book titles one by one
+
+    for (const book of bookArray){
+        yield book.title;
+    }
+
 }
 
 export function createBookSummary(book) {
     // Destructure book properties and create formatted summary
+    const{
+        book,
+        year,
+        author,
+        availability:{status,location}={}
+    }=book;
+    return `${title} by ${author} (${year})  ${status==="available" ? 'Available at ${location}' : "Not available"}`;
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fetch User & Posts</title>
+</head>
+<body>
+
+  <input type="number" id="userId" value="1" />
+  <button id="promiseBtn">Load (Promise)</button>
+  <button id="asyncBtn">Load (Async)</button>
+
+  <div id="output"></div>
+
+  <script>
+    const BASE = "https://jsonplaceholder.typicode.com";
+
+    // Fetch user
+
+    
+    function getUser(id) {
+      return fetch(`${BASE}/users/${id}`)
+        .then(res => res.json());
+    }
+
+    // Fetch posts
+    function getPosts(id) {
+      return fetch(`${BASE}/users/${id}/posts`)
+        .then(res => res.json());
+    }
+
+    //  Promise chaining version
+    document.getElementById("promiseBtn").addEventListener("click", () => {
+      const id = document.getElementById("userId").value;
+
+      getUser(id)
+        .then(user => {
+          return getPosts(id).then(posts => ({ user, posts }));
+        })
+        .then(data => {
+          console.log("User:", data.user.name);
+          data.posts.forEach(p => console.log(p.title));
+
+          // Display in DOM
+          document.getElementById("output").innerHTML = `
+            <h2>${data.user.name}</h2>
+            <p>${data.user.email}</p>
+            <ul>
+              ${data.posts.map(p => `<li>${p.title}</li>`).join("")}
+            </ul>
+          `;
+        })
+        .catch(err => console.log("Error:", err));
+    });
+
+    //  Async/Await 
+    document.getElementById("asyncBtn").addEventListener("click", async () => {
+      const id = document.getElementById("userId").value;
+
+      try {
+        const user = await getUser(id);
+        const posts = await getPosts(id);
+
+        console.log("User:", user.name);
+        posts.forEach(p => console.log(p.title));
+
+        document.getElementById("output").innerHTML = `
+          <h2>${user.name}</h2>
+          <p>${user.email}</p>
+          <ul>
+            ${posts.map(p => `<li>${p.title}</li>`).join("")}
+          </ul>
+        `;
+      } catch (err) {
+        console.log("Error:", err);
+      }
+    });
+  </script>
+
+</body>
+</html>
