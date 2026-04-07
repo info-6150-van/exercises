@@ -1,16 +1,25 @@
+import { Link } from "react-router-dom";
+import ThemeToggle from "../components/ThemeToggle";
+
 function Home() {
   return (
-    <div className="page-card">
-      <h1>Exercise 7</h1>
-      <p>
-        This project includes a simple dynamic form builder and a feedback page.
+    <div className="page-container">
+      <h1>Dynamic Form Builder</h1>
+      <p className="page-description">
+        This project demonstrates Redux, Context, Router, persistence, and preview mode.
       </p>
 
-      <h2>Exercise A</h2>
-      <p>Build a dynamic form builder inspired by Google Forms.</p>
+      <div className="home-actions">
+        <Link className="nav-btn" to="/builder/edit">
+          Start Building
+        </Link>
 
-      <h2>Exercise B</h2>
-      <p>Get feedback from your peers about the interface and usability.</p>
+        <Link className="nav-btn" to="/feedback">
+          View Feedback Page
+        </Link>
+      </div>
+
+      <ThemeToggle />
     </div>
   );
 }

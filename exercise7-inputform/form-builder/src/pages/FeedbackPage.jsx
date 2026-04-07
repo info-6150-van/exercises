@@ -1,16 +1,16 @@
 function FeedbackPage() {
   return (
-    <div className="page-card">
-      <h1>Peer Feedback</h1>
+    <div className="page-container">
+      <h1>Code Review Feedback</h1>
 
-      <div className="feedback-box">
-        <h2>Sample Feedback</h2>
+      <div className="feedback-card">
+        <h3>Classmate Review Notes</h3>
         <ul>
-          <li>The interface is simple and easy to understand.</li>
-          <li>Adding questions is straightforward.</li>
-          <li>The option fields are clear for multiple choice questions.</li>
-          <li>A preview mode would make the app even better.</li>
-          <li>Drag-and-drop reordering could be a useful future feature.</li>
+          <li>The project separates edit mode and preview mode clearly.</li>
+          <li>Redux is used for schema state management.</li>
+          <li>Context is used for global theme management.</li>
+          <li>Router controls page navigation and preview/edit state.</li>
+          <li>Schema persistence improves usability and simulates optimistic updates.</li>
         </ul>
       </div>
     </div>
