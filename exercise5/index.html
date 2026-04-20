@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Exercise 5</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h2>Product Card</h2>
+
+    <product-card name="iPhone" price="999">
+      <img slot="image" src="./assert/mountain.webp" alt="mountain">
+      <span slot="desc">Latest smartphone</span>
+    </product-card>
+
+
+    <h2>Todo List</h2>
+
+    <todo-list></todo-list>
+  </div>
+
+
+  <script type="module">
+    import "./components/product-card.js";
+    import "./components/todo-list.js";
+
+    document.querySelector("product-card")
+      .addEventListener("purchase", e => {
+        console.log("Purchased:", e.detail);
+      });
+
+    document.querySelector("todo-list")
+      .addEventListener("listChanged", e => {
+        console.log("Todo list:", e.detail.items);
+      });
+  </script>
+
+</body>
+</html>

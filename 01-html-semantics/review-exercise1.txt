@@ -1,0 +1,7 @@
+For the refactored html:
+- required changes are all present
+- nice usage of inline CSS
+- W3C Validator seems to be unset about the style element between head and body
+For the landing page:
+- required changes are all present
+- There are some trailing slashes but no critical issues

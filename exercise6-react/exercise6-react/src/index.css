@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+#root {
+  width: 100%;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.app h1 {
+  margin-bottom: 8px;
+  font-size: 36px;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 32px;
+}
+
+.profile-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profile-form {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.profile-form h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.profile-form input,
+.profile-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.profile-form textarea {
+  resize: vertical;
+}
+
+.profile-form button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s ease;
+}
+
+.profile-form button:hover {
+  background: #1d4ed8;
+}
+
+.profile-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-4px);
+}
+
+.profile-avatar {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.profile-card h2 {
+  margin: 10px 0 8px;
+  font-size: 22px;
+}
+
+.profile-card p {
+  margin: 0 0 18px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.highlight-btn {
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.highlight-btn:hover {
+  background: #374151;
+}
+
+.highlight-btn.active {
+  background: #4caf50;
+}
+
+.highlight-btn.active:hover {
+  background: #3f9443;
+}

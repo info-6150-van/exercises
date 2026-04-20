@@ -1,0 +1,17 @@
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body>
+        <Navbar />
+        <main style={{ padding: "24px" }}>{children}</main>
+      </body>
+    </html>
+  );
+}

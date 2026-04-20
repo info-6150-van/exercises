@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Product Card Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* =========================
+       Base / Reset
+    ========================== */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: #222;
+      background: #f6f7fb;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.25rem;
+    }
+
+    .page__header {
+      margin: 0.5rem 0 1rem;
+      text-align: center;
+    }
+    .page__title {
+      margin: 0;
+      font-size: 1.9rem;
+      letter-spacing: -0.2px;
+    }
+    .page__subtitle {
+      margin: 0.5rem 0 0;
+      color: #5b6273;
+    }
+
+    /* =========================
+       Gallery Layout (Grid)
+       - responsive columns
+    ========================== */
+    .gallery {
+      display: grid;
+      gap: 1rem;
+      /* auto-fit + minmax = 自动根据屏幕宽度改变列数 */
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 1.25rem;
+    }
+
+    /* =========================
+       Card Component
+    ========================== */
+    .card {
+      background: #fff;
+      border: 1px solid #e6e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(18, 24, 40, 0.06);
+      display: flex;
+      flex-direction: column; /* 让按钮区固定在底部更自然 */
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(18, 24, 40, 0.09);
+    }
+
+    .card__media {
+      padding: 0.9rem;
+      background: #fbfbfe;
+      border-bottom: 1px solid #eef0f6;
+    }
+    /* 图片圆角 + 阴影（exercise 要求） */
+    .card__img {
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(18, 24, 40, 0.12);
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+    }
+
+    .card__body {
+      padding: 1rem 1rem 0.75rem;
+    }
+    .card__title {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: -0.1px;
+    }
+    .card__desc {
+      margin: 0.4rem 0 0;
+      color: #5b6273;
+      font-size: 0.98rem;
+    }
+
+    .card__footer {
+      padding: 0 1rem 1rem;
+      margin-top: auto; /* 把 footer 推到最底部 */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .price {
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+    .price small {
+      font-weight: 600;
+      color: #5b6273;
+    }
+
+    /* =========================
+       Button Component
+       - hover + active required
+    ========================== */
+    .btn {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0.55rem 0.9rem;
+      font-weight: 650;
+      cursor: pointer;
+      background: #3459db;
+      color: #fff;
+      transition: background-color 0.2s ease, transform 0.05s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 18px rgba(52, 89, 219, 0.22);
+      white-space: nowrap;
+    }
+    .btn:hover {
+      background: #2b4cc4;
+      box-shadow: 0 10px 22px rgba(52, 89, 219, 0.28);
+    }
+    .btn:active {
+      transform: translateY(1px) scale(0.99);
+      background: #2340aa;
+    }
+    .btn:focus-visible {
+      outline: 3px solid #8aa4ff;
+      outline-offset: 2px;
+    }
+
+    /* =========================
+       Optional: slightly larger text on tablets+
+    ========================== */
+    @media (min-width: 768px) {
+      .page { padding: 1.75rem; }
+      .page__title { font-size: 2.1rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="page__header">
+      <h1 class="page__title">Acme Product Gallery</h1>
+      <p class="page__subtitle">A responsive gallery of reusable product cards (Grid + hover/active).</p>
+    </header>
+
+    <main>
+      <section class="gallery" aria-label="Product card gallery">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="card__media">
+            <img class="card__img"
+                 src="https://picsum.photos/seed/keyboard/800/500"
+                 alt="Wireless keyboard on a desk" />
+          </div>
+          <div class="card__body">
+            <h2 class="card__title">Wireless Keyboard</h2>
+            <p class="card__desc">A quiet, compact keyboard designed for comfortable typing anywhere.</p>
+          </div>
+          <div class="card__footer">
+            <div class="price"><small>$</small>39.99</div>
+            <button class="btn" type="button">Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="card__media">
+            <img class="card__img"
+                 src="https://picsum.photos/seed/headphones/800/500"
+                 alt="Over-ear headphones with soft padding" />
+          </div>
+          <div class="card__body">
+            <h2 class="card__title">Studio Headphones</h2>
+            <p class="card__desc">Clear sound with deep bass, tuned for focus and long sessions.</p>
+          </div>
+          <div class="card__footer">
+            <div class="price"><small>$</small>79.00</div>
+            <button class="btn" type="button">Buy Now</button>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="card__media">
+            <img class="card__img"
+                 src="https://picsum.photos/seed/mug/800/500"
+                 alt="A ceramic mug on a table" />
+          </div>
+          <div class="card__body">
+            <h2 class="card__title">Ceramic Mug</h2>
+            <p class="card__desc">Minimal design, perfect for coffee or tea. Dishwasher safe.</p>
+          </div>
+          <div class="card__footer">
+            <div class="price"><small>$</small>14.50</div>
+            <button class="btn" type="button">Get It</button>
+          </div>
+        </article>
+
+        <!-- (Optional) Card 4: more than 3 is OK -->
+        <article class="card">
+          <div class="card__media">
+            <img class="card__img"
+                 src="https://picsum.photos/seed/backpack/800/500"
+                 alt="A backpack suitable for daily commuting" />
+          </div>
+          <div class="card__body">
+            <h2 class="card__title">Everyday Backpack</h2>
+            <p class="card__desc">Lightweight storage with a laptop sleeve and durable materials.</p>
+          </div>
+          <div class="card__footer">
+            <div class="price"><small>$</small>49.00</div>
+            <button class="btn" type="button">Add to Cart</button>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
